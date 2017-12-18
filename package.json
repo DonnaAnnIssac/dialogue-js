@@ -1,0 +1,23 @@
+{
+  "name": "reddit-clone",
+  "version": "1.0.0",
+  "description": "Reddit API clone using Node.js, Express.js and MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonnaAnnIssac/reddit-clone-js.git"
+  },
+  "keywords": [
+    "reddit",
+    "community"
+  ],
+  "author": "Donna Ann Issac",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DonnaAnnIssac/reddit-clone-js/issues"
+  },
+  "homepage": "https://github.com/DonnaAnnIssac/reddit-clone-js#readme"
+}
