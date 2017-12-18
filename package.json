@@ -4,6 +4,7 @@
   "description": "Reddit API clone using Node.js, Express.js and MongoDB",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/DonnaAnnIssac/reddit-clone-js/issues"
   },
-  "homepage": "https://github.com/DonnaAnnIssac/reddit-clone-js#readme"
+  "homepage": "https://github.com/DonnaAnnIssac/reddit-clone-js#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.13.3"
+  }
 }
