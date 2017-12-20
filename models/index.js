@@ -1,4 +1,5 @@
-const User = require('./userModel')
-// import user model
+const user = require('./userModel')
+const post = require('./postModel')
+const comment = require('./commentModel')
 
-module.exports = User
+module.exports = {user, post, comment}
