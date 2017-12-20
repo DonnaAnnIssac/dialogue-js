@@ -2,15 +2,21 @@ const express = require('express')
 const app = express()
 const routes = require('./routes')
 const mongodb = require('mongodb')
-let db
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.json())
 let MongoClient = require('mongodb').MongoClient
 
 MongoClient.connect('mongodb://localhost:27017/redditClone', (err, database) => {
   if (err) console.error(err)
-  db = database
-  console.log('Connected to databse')
+
+  app.db = database.db('redditClone')
+  console.log('Connected to database')
+
+  app.use('/api', routes)
+
+  let server = app.listen(5000, () => {
+    let port = server.address().port
+    console.log("Express server listening on port %s.", port)
+  })
 })
-
-app.use('/api', routes)
-
-module.exports = {app, MongoClient}
