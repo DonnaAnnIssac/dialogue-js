@@ -1,13 +1,9 @@
-const UserModel = require('./../models')
+const UserModel = require('./../models').user
 const userController = {}
 
 userController.post = (req, res) => {
-  const {userName, password} = req.body
   // add validation
-  const user = new UserModel({
-    userName,
-    password
-  })
+  const user = new UserModel(req.body)
   req.app.db.collection('users').insertOne(user, (err, result) => {
     if (err) throw err
     console.log('Document inserted')
