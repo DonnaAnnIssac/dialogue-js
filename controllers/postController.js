@@ -10,4 +10,12 @@ postController.create = (req, res) => {
   })
 }
 
+postController.getAll = (req, res) => {
+  req.app.db.collection('posts').find().toArray((err, result) => {
+    if (err) throw err
+    console.log('Retrieved all posts from collection')
+    res.json(result)
+  })
+}
+
 module.exports = postController
