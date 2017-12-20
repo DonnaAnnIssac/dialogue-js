@@ -14,6 +14,8 @@ routes.post('/signup', user.post)
 
 // Post routes
 routes.post('/post', post.create)
+routes.get('/myFeed', post.getAll)
+// routes.get('/showPost', post.get)
 
 // Comment routes
 routes.post('/comment', comment.post)
