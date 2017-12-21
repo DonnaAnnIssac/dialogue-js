@@ -54,7 +54,9 @@ postController.update = (req, res) => {
 }
 
 postController.getMyPosts = () => {
-  req.app.db.collection('posts').find({"author_id" : ObjectId(req.query.id)}).toArray((err, result) => {
+  req.app.db.collection('posts')
+  .find({"author_id" : ObjectId(req.query.id)})
+  .toArray((err, result) => {
     if (err) throw err
     console.log('Retrieved all posts from collection')
     res.json(result)
