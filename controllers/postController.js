@@ -1,3 +1,4 @@
+const ObjectId = require('mongodb').ObjectID
 const PostModel = require('./../models').post
 const postController = {}
 
@@ -18,4 +19,17 @@ postController.getAll = (req, res) => {
   })
 }
 
+postController.showPost = (req, res) => {
+  req.app.db.collection('posts')
+  .find({"_id" : ObjectId(req.query.id)})
+  .toArray((err, result) => {
+    if (err) throw err
+    req.app.db.collection('comments')
+    .find({"post_id" : ObjectId(req.query.id)})
+    .toArray((err, results) => {
+      console
+      res.json({"post" : result[0], "comments" : results})
+    })
+  })
+}
 module.exports = postController
