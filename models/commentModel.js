@@ -1,9 +1,12 @@
+const ObjectId = require('mongodb').ObjectID
+
 class Comment {
     constructor(obj) {
         this.link = obj.link,
         this.text = obj.text,
         this.author = obj.author,
-        this.time = obj.time,
+        this.author_id = ObjectId(obj.user_id)
+        this.post_id = ObjectId(obj.post_id),
         this.score = 0
     }
  }
