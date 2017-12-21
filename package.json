@@ -1,7 +1,7 @@
 {
-  "name": "reddit-clone",
+  "name": "dialogue-js",
   "version": "1.0.0",
-  "description": "Reddit API clone using Node.js, Express.js and MongoDB",
+  "description": "API for a discussion website using Node.js, Express.js and MongoDB",
   "main": "app.js",
   "scripts": {
     "start": "nodemon",
@@ -13,7 +13,8 @@
   },
   "keywords": [
     "reddit",
-    "community"
+    "community",
+    "discussion"
   ],
   "author": "Donna Ann Issac",
   "license": "MIT",
