@@ -16,7 +16,7 @@ routes.post('/signup', user.post)
 routes.post('/post', post.create)
 routes.get('/myFeed', post.getAll)
 routes.get('/showPost', post.showPost)
-
+routes.delete('/removePost', post.delete)
 // Comment routes
 routes.post('/comment', comment.post)
 
