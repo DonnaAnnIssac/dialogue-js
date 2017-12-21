@@ -1,3 +1,3 @@
-# reddit-clone-js
+# dialogue-js
 
-A clone of Reddit API using Node.js, Express.js and MongoDB
+API for web content rating and discussion website using Node.js, Express.js and MongoDB
