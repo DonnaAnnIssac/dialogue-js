@@ -11,7 +11,7 @@ routes.get('/', basic.get)
 
 // User routes
 routes.post('/signup', user.post)
-// --> add > routes.post('/signin', user.logIn)
+routes.post('/signin', user.logIn)
 
 // Post routes
 routes.post('/post', post.create)
