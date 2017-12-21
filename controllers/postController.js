@@ -19,7 +19,7 @@ postController.getAll = (req, res) => {
   })
 }
 
-postController.showPost = (req, res) => {
+postController.show = (req, res) => {
   req.app.db.collection('posts')
   .find({"_id" : ObjectId(req.query.id)})
   .toArray((err, result) => {
@@ -27,9 +27,46 @@ postController.showPost = (req, res) => {
     req.app.db.collection('comments')
     .find({"post_id" : ObjectId(req.query.id)})
     .toArray((err, results) => {
-      console
       res.json({"post" : result[0], "comments" : results})
     })
   })
 }
+
+postController.delete = (req, res) => {
+  req.app.db.collection('posts')
+  .deleteOne({
+    "_id" : ObjectId(req.body.id),
+    "author_id" : ObjectId(req.body.my_id)
+  })
+}
+
+postController.update = (req, res) => {
+  let keys = Object.keys(req.body.values)
+  let values = {}
+  keys.forEach((key) => {
+    values[key] = req.body.values[key]
+  })
+  req.app.db.collection('posts')
+  .updateOne({ "_id" : ObjectId(req.body.id) }, values, (err, result) => {
+    if (err) throw err
+    console.log('Updated one document')
+  })
+}
+
+postController.getMyPosts = () => {
+  req.app.db.collection('posts').find({"author_id" : ObjectId(req.query.id)}).toArray((err, result) => {
+    if (err) throw err
+    console.log('Retrieved all posts from collection')
+    res.json(result)
+  })
+}
+
+postController.updateScore = (req, res) => {
+  req.app.db.collection('posts')
+  .updateOne({"_id" : ObjectId(req.body.id)}, {"score" : req.body.score}, (err, result) => {
+    if (err) throw err
+    res.json(result)
+  })
+}
+
 module.exports = postController
