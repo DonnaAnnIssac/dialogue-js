@@ -2,24 +2,24 @@ const UserModel = require('./../models').user
 const userController = {}
 
 userController.post = (req, res) => {
-  // add validation
-  if(!validateName(req.body)) res.json("This user name exists. Enter another name")
-
-  const user = new UserModel(req.body)
-  req.app.db.collection('users').insertOne(user, (err, result) => {
-    if (err) throw err
-    console.log('Document inserted')
-    res.json(result)
-  })
+  if(validateName(req)) {
+    const user = new UserModel(req.body)
+    req.app.db.collection('users').insertOne(user, (err, result) => {
+      if (err) throw err
+      console.log('Document inserted')
+      res.json(result)
+    })
+  }
+  else res.json("This user name exists. Enter another name")
 }
 
-const validateName = (body) => {
+const validateName = (req) => {
   req.app.db.collection('users')
-  .find({"userName" : body.userName})
+  .find({"userName" : req.body.userName})
   .toArray((err, result) => {
     if (err) throw err
-    if(result.length === 0) return true
-    else return false
+    if(result.length === 0) return false
+    else return true
   })
 }
 
@@ -29,7 +29,7 @@ userController.login = (req, res) => {
   .toArray((err, result) => {
     if (err) throw err
     if (result.length === 0) res.json("Invalid User Name")
-    if (result[0].password !== req.body.password) res.json("Password incorrect")
+    else if (result[0].password !== req.body.password) res.json("Password incorrect")
     else res.json(result)
   })
 }
