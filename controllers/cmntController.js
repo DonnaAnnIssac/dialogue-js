@@ -16,17 +16,15 @@ commentController.delete = (req, res) => {
   .deleteOne({
     "_id" : ObjectId(req.body.id),
     "author_id" : ObjectId(req.body.my_id)
+  }, (err, result) => {
+    if (err) throw err
+    res.json(result)
   })
 }
 
 commentController.update = (req, res) => {
-  let keys = Object.keys(req.body.values)
-  let values = {}
-  keys.forEach((key) => {
-    values[key] = req.body.values[key]
-  })
   req.app.db.collection('comments')
-  .updateOne({ "_id" : ObjectId(req.body.id) }, values, (err, result) => {
+  .updateOne({ "_id" : ObjectId(req.body.id) }, {$set : req.body.values}, (err, result) => {
     if (err) throw err
     console.log('Updated one document')
   })
@@ -34,7 +32,7 @@ commentController.update = (req, res) => {
 
 commentController.updateScore = (req, res) => {
   req.app.db.collection('comments')
-  .updateOne({"_id" : ObjectId(req.body.id)}, {"score" : req.body.score}, (err, result) => {
+  .updateOne({"_id" : ObjectId(req.body.id)}, {$set : {"score" : req.body.score}}, (err, result) => {
     if (err) throw err
     res.json(result)
   })
