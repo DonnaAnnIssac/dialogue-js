@@ -14,6 +14,7 @@ MongoClient.connect('mongodb://localhost:27017/redditClone', (err, database) => 
   console.log('Connected to database')
 
   app.use('/api', routes)
+  app.use(express.static('static'))
 
   let server = app.listen(5000, () => {
     let port = server.address().port
