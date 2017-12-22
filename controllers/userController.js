@@ -32,9 +32,9 @@ userController.login = (req, res) => {
     else if (result[0].password !== req.body.password) res.json({"status" : 10, "value" : "Password incorrect"})
     else {
       let userInfo = {}
-      userInfo["Name"] = result[0].userName,
-      userInfo["id"] = result[0]._id
-      res.json({"status" : 11, "value": userInfo})
+      userInfo['userName'] = result[0].userName
+      userInfo['_id'] = result[0]._id
+      res.json({"status" : 11, "value" : userInfo})
     }
   })
 }
