@@ -6,7 +6,7 @@ class Post {
        this.link = obj.link,
        this.text = obj.text,
        this.author = obj.author,
-       this.author_id = ObjectId(obj.author_id,)
+       this.author_id = ObjectId(obj.author_id),
        this.score = 0
    }
 }
