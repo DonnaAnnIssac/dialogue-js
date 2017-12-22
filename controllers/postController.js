@@ -37,25 +37,24 @@ postController.delete = (req, res) => {
   .deleteOne({
     "_id" : ObjectId(req.body.id),
     "author_id" : ObjectId(req.body.my_id)
+  }, (err, result) => {
+    if (err) throw err
+    res.json(result)
   })
 }
 
 postController.update = (req, res) => {
-  let keys = Object.keys(req.body.values)
-  let values = {}
-  keys.forEach((key) => {
-    values[key] = req.body.values[key]
-  })
   req.app.db.collection('posts')
-  .updateOne({ "_id" : ObjectId(req.body.id) }, values, (err, result) => {
+  .updateOne({ "_id" : ObjectId(req.body.id) }, {$set : req.body.values}, (err, result) => {
     if (err) throw err
     console.log('Updated one document')
+    res.json(result)
   })
 }
 
-postController.getMyPosts = () => {
+postController.getMyPosts = (req, res) => {
   req.app.db.collection('posts')
-  .find({"author_id" : ObjectId(req.query.id)})
+  .find({"author_id" : ObjectId(req.query.author_id)})
   .toArray((err, result) => {
     if (err) throw err
     console.log('Retrieved all posts from collection')
@@ -65,7 +64,7 @@ postController.getMyPosts = () => {
 
 postController.updateScore = (req, res) => {
   req.app.db.collection('posts')
-  .updateOne({"_id" : ObjectId(req.body.id)}, {"score" : req.body.score}, (err, result) => {
+  .updateOne({"_id" : ObjectId(req.body.id)}, {$set : {"score" : req.body.score}}, (err, result) => {
     if (err) throw err
     res.json(result)
   })
