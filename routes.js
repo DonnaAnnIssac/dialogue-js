@@ -6,22 +6,22 @@ const comment = require('./controllers/cmntController')
 const routes = express.Router()
 
 // User routes
-routes.post('/signup', user.post)
-routes.post('/signin', user.login)
+routes.post('/user/signup', user.create)
+routes.post('/user/signin', user.login)
 
 // Post routes
-routes.post('/post', post.create)
-routes.get('/myFeed', post.getAll)
-routes.get('/show', post.show)
-routes.get('/myPosts', post.getMyPosts)
-routes.post('/removePost', post.delete)
-routes.post('/updatePost', post.update)
-routes.post('/updatePostScore', post.updateScore)
+routes.get('/post', post.getAll)
+routes.get('/post/show', post.show)
+routes.get('/post/mine', post.getMyPosts)
+routes.post('/post/create', post.create)
+routes.post('/post/remove', post.delete)
+routes.post('/post/update', post.update)
+routes.post('/post/score', post.updateScore)
 
 // Comment routes
-routes.post('/comment', comment.post)
-routes.post('/removeComment', comment.delete)
-routes.post('./updateComment', comment.update)
-routes.post('/updateCommentScore', comment.updateScore)
+routes.post('/comment/create', comment.post)
+routes.post('/comment/remove', comment.delete)
+routes.post('/comment/update', comment.update)
+routes.post('/comment/score', comment.updateScore)
 
 module.exports = routes
