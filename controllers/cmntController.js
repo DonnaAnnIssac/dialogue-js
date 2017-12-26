@@ -28,11 +28,19 @@ commentController.update = (req, res) => {
   })
 }
 
-commentController.updateScore = (req, res) => {
-  req.app.db.collection('comments')
-  .updateOne({'_id': ObjectId(req.body.id)}, {$set: {'score': req.body.score}}, (err, result) => {
-    if (err) throw err
-    res.json(result)
+commentController.upvote = (req, res) => {
+  req.app.db.collection('posts')
+  .updateOne({'_id': ObjectId(req.body.id)}, {$set: {'upVote': this.upVote + 1}}, (err, result) => {
+    if (err) res.json({'status': 'fail', 'data': err})
+    else res.json({'status': 'success', 'data': result})
+  })
+}
+
+commentController.downvote = (req, res) => {
+  req.app.db.collection('posts')
+  .updateOne({'_id': ObjectId(req.body.id)}, {$set: {'downVote': this.downVote + 1}}, (err, result) => {
+    if (err) res.json({'status': 'fail', 'data': err})
+    else res.json({'status': 'success', 'data': result})
   })
 }
 
