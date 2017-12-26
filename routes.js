@@ -19,7 +19,7 @@ routes.post('/post/update', post.update)
 routes.post('/post/score', post.updateScore)
 
 // Comment routes
-routes.post('/comment/create', comment.post)
+routes.post('/comment/create', comment.create)
 routes.post('/comment/remove', comment.delete)
 routes.post('/comment/update', comment.update)
 routes.post('/comment/score', comment.updateScore)
