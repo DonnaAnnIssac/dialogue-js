@@ -7,7 +7,8 @@ class Comment {
     this.author = obj.author
     this.author_id = ObjectId(obj.user_id)
     this.post_id = ObjectId(obj.post_id)
-    this.score = 0
+    this.upVote = 0
+    this.downVote = 0
   }
 }
 
