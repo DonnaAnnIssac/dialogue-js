@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const routes = require('./routes')
-const mongodb = require('mongodb')
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.json())
@@ -18,6 +17,6 @@ MongoClient.connect('mongodb://localhost:27017/redditClone', (err, database) => 
 
   let server = app.listen(5000, () => {
     let port = server.address().port
-    console.log("Express server listening on port %s.", port)
+    console.log('Express server listening on port %s', port)
   })
 })
