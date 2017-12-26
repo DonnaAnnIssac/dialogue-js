@@ -60,12 +60,19 @@ postController.getMyPosts = (req, res) => {
   })
 }
 
-postController.updateScore = (req, res) => {
+postController.upvote = (req, res) => {
   req.app.db.collection('posts')
-  .updateOne({'_id': ObjectId(req.body.id)}, {$set: {'score': req.body.score}}, (err, result) => {
-    if (err) throw err
-    res.json(result)
+  .updateOne({'_id': ObjectId(req.body.id)}, {$set: {'upVote': this.upVote + 1}}, (err, result) => {
+    if (err) res.json({'status': 'fail', 'data': err})
+    res.json({'status': 'success', 'data': result})
   })
 }
 
+postController.downvote = (req, res) => {
+  req.app.db.collection('posts')
+  .updateOne({'_id': ObjectId(req.body.id)}, {$set: {'downVote': this.downVote + 1}}, (err, result) => {
+    if (err) res.json({'status': 'fail', 'data': err})
+    res.json({'status': 'success', 'data': result})
+  })
+}
 module.exports = postController
