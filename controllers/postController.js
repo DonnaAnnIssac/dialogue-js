@@ -62,7 +62,7 @@ postController.getMyPosts = (req, res) => {
 
 postController.upvote = (req, res) => {
   req.app.db.collection('posts')
-  .updateOne({'_id': ObjectId(req.body.id)}, {$set: {'upVote': this.upVote + 1}}, (err, result) => {
+  .updateOne({'_id': ObjectId(req.body.id)}, {$inc: {'upVote': 1}}, (err, result) => {
     if (err) res.json({'status': 'fail', 'data': err})
     else res.json({'status': 'success', 'data': result})
   })
@@ -70,7 +70,7 @@ postController.upvote = (req, res) => {
 
 postController.downvote = (req, res) => {
   req.app.db.collection('posts')
-  .updateOne({'_id': ObjectId(req.body.id)}, {$set: {'downVote': this.downVote + 1}}, (err, result) => {
+  .updateOne({'_id': ObjectId(req.body.id)}, {$inc: {'downVote': 1}}, (err, result) => {
     if (err) res.json({'status': 'fail', 'data': err})
     else res.json({'status': 'success', 'data': result})
   })
