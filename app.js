@@ -3,24 +3,23 @@ const app = express()
 const routes = require('./routes')
 const bodyParser = require('body-parser')
 const session = require('express-session')
-const MongoStore = require('connect-mongo')
+// const MongoStore = require('connect-mongo')
 const config = require('./config.js')
+
 app.use(bodyParser.json())
 
-// function sessionManagementConfig (app) {
-//   app.use(session({
-//     store: new MongoStore({
-//       dbPromise: ''
-//     }),
-//     secret: 'secret',
-//     resave: false,
-//     saveUninitialized: true
-//   }))
-// }
+app.use(session({
+  // store: new MongoStore({
+  //   dbPromise: ''
+  // }),
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 let MongoClient = require('mongodb').MongoClient
-
-MongoClient.connect('mongodb://' + config.db.host + ':' + config.db.port + '/' + config.db.name, (err, database) => {
+let connectionString = 'mongodb://' + config.db.host + ':' + config.db.port + '/' + config.db.name
+MongoClient.connect(connectionString, (err, database) => {
   if (err) console.error(err)
   app.db = database.db(config.db.name)
   console.log('Connected to database')
