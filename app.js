@@ -2,8 +2,11 @@ const express = require('express')
 const app = express()
 const routes = require('./routes')
 const bodyParser = require('body-parser')
+const session = require('express-session')
+const cookieParser = require('cookie-parser')
 
 app.use(bodyParser.json())
+app.use(session({secret: 'secret'}))
 let MongoClient = require('mongodb').MongoClient
 
 MongoClient.connect('mongodb://localhost:27017/redditClone', (err, database) => {
