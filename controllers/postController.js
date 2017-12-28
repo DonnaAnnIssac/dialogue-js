@@ -16,8 +16,7 @@ postController.getAll = (req, res) => {
       if (err) res.json({'status': 'fail', 'data': err})
       else res.json({'status': 'success', 'data': result})
     })
-  }
-  else res.json({'status': 'fail', 'data': 'You need to be logged in first'})
+  } else res.json({'status': 'fail', 'data': 'You need to be logged in first'})
 }
 
 postController.show = (req, res) => {
