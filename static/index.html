@@ -5,15 +5,18 @@
     <body>
         <div id="parent">
             <div id="userName">
-                <input id="name" type="text" placeholder="User Name" required>
+                <input id="name" type="text" placeholder = "User Name" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'User Name'" required>
             </div>
             <div id="password">
-                <input id="pwd" type="password" placeholder="Password" required>
+                <input id="pwd" type="password" placeholder="Password" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'Password'" required>
             </div>
             <div id="login">
                 <button type="submit">Log In</button>
             </div>
             <div id="loginFail"></div>
+            <div id="signup">
+                <a href="signup.html">Don't have an account? Click here to signup</a>
+            </div>
         </div>
         <script src="./src/index.js" type="text/javascript"></script>
     </body>
