@@ -47,6 +47,10 @@ const addPostContents = () => {
 }
 
 const createPost = () => {
+  document.querySelectorAll('input').forEach(element => {
+    element.value = ''
+    element.blur()
+  })
   let postContents = addPostContents()
   let xhr = new XMLHttpRequest()
   xhr.open('POST', 'http://localhost:5000/api/post/create', true)
