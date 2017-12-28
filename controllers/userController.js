@@ -39,4 +39,8 @@ userController.login = (req, res) => {
   })
 }
 
+userController.logout = (req, res) => {
+  req.session.destroy()
+  res.json({'status': 'success', 'data': 'Logout successful'})
+}
 module.exports = userController
