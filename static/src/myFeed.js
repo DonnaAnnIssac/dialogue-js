@@ -7,6 +7,35 @@ inputList.forEach((element) => {
     element.value = ''
   })
 })
+
+const createLinkField = (element, container) => {
+  let link = document.createElement('div')
+  let linkVal = document.createElement('a')
+  linkVal.setAttribute('href', element.link)
+  linkVal.setAttribute('target', '_blank')
+  linkVal.innerHTML = 'click here'
+  link.appendChild(linkVal)
+  container.appendChild(link)
+}
+
+const createTextDiv = (element, fieldName, container) => {
+  let field = document.createElement('div')
+  field.textContent = element[fieldName]
+  container.appendChild(field)
+}
+
+const createPostDiv = (post, postObj) => {
+  createTextDiv(postObj, 'author', post)
+  createTextDiv(postObj, 'title', post)
+  if (postObj.text !== null) createTextDiv(postObj, 'text', post)
+  if (postObj.link !== null) createLinkField(postObj, post)
+  post.setAttribute('id', postObj._id)
+  post.addEventListener('click', () => {
+    window.location.href = 'post.html?id=' + postObj._id
+  })
+  return post
+}
+
 const addPostContents = () => {
   let postContents = {}
   postContents['author'] = sessionStorage.name
@@ -14,6 +43,7 @@ const addPostContents = () => {
   postContents['title'] = document.getElementById('title').value
   postContents['text'] = document.getElementById('description').value
   postContents['link'] = document.getElementById('link').value
+  return postContents
 }
 
 const createPost = () => {
@@ -23,46 +53,7 @@ const createPost = () => {
   xhr.setRequestHeader('Content-type', 'application/json')
   xhr.send(JSON.stringify(postContents))
   let post = document.createElement('div')
-  post = createPostDiv(post, postContents)
-  postContainer.appendChild(post)
-}
-
-const showPost = (id) => {
-}
-
-const createTextDiv = (element, fieldName) => {
-  let field = document.createElement('div')
-  field.textContent = element[fieldName]
-  return field
-}
-
-const createLinkField = (element) => {
-  let link = document.createElement('div')
-  let linkVal = document.createElement('a')
-  linkVal.setAttribute('href', element.link)
-  linkVal.setAttribute('target', '_blank')
-  linkVal.innerHTML = 'click here'
-  link.appendChild(linkVal)
-  return link
-}
-
-const createPostDiv = (post, element) => {
-  let author = createTextDiv(element, 'author')
-  post.appendChild(author)
-  let title = createTextDiv(element, 'title')
-  post.appendChild(title)
-  if (element.text !== null) {
-    let text = createTextDiv(element, 'text')
-    post.appendChild(text)
-  }
-  if (element.link !== null) {
-    let link = createLinkField(element)
-    post.appendChild(link)
-  }
-  post.setAttribute('id', element._id)
-  post.addEventListener('click', (post.id) => {
-    window.location.href = 'post.html?id=' + post.id})
-  return post
+  postContainer.appendChild(createPostDiv(post, postContents))
 }
 
 const listPosts = (list, container) => {
@@ -71,15 +62,17 @@ const listPosts = (list, container) => {
     post = createPostDiv(post, element)
     container.appendChild(post)
   })
-  return container
 }
 
 const loadPosts = () => {
   let xhr = new XMLHttpRequest()
-  xhr.open('GET', 'http://localhost:5000/api/post/', true)
+  xhr.open('GET', 'http://localhost:5000/api/post/?id=' + sessionStorage.id + '&userName=' + sessionStorage.name, true)
   xhr.send()
   xhr.onreadystatechange = () => {
-    if (xhr.readyState === 4 && xhr.status === 200) postContainer = listPosts(JSON.parse(xhr.responseText).data, postContainer)
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      if (JSON.parse(xhr.responseText).status === 'success') listPosts(JSON.parse(xhr.responseText).data, postContainer)
+      else window.location.href = 'index.html'
+    }
   }
 }
 
