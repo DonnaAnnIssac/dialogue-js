@@ -32,10 +32,9 @@ userController.login = (req, res) => {
     if (result.length === 0) res.json({'status': 'fail', 'data': 'Invalid User Name'})
     else if (result[0].password !== req.body.password) res.json({'status': 'fail', 'data': 'Password incorrect'})
     else {
-      let userInfo = {}
-      userInfo['userName'] = result[0].userName
-      userInfo['_id'] = result[0]._id
-      res.json({'status': 'success', 'data': userInfo})
+      req.session.userName = req.body.userName
+      req.session.userID = result[0]._id
+      res.json({'status': 'success', 'data': {'userName': result[0].userName, 'id': result[0]._id}})
     }
   })
 }
