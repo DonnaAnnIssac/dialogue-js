@@ -8,6 +8,7 @@ const routes = express.Router()
 // User routes
 routes.post('/user/signup', user.create)
 routes.post('/user/signin', user.login)
+routes.get('/user/signout', user.logout)
 
 // Post routes
 routes.get('/post', post.getAll)
