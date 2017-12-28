@@ -7,9 +7,13 @@ const logIn = () => {
   xhr.send(JSON.stringify({'userName': name, 'password': pwd}))
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      sessionStorage.name = JSON.parse(xhr.responseText).data['userName']
-      sessionStorage.id = JSON.parse(xhr.responseText).data['id']
-      window.location.replace('myFeed.html')
+      if (JSON.parse(xhr.responseText).status === 'success') {
+        sessionStorage.name = JSON.parse(xhr.responseText).data['userName']
+        sessionStorage.id = JSON.parse(xhr.responseText).data['id']
+        window.location.replace('myFeed.html')
+      } else {
+        document.getElementById('loginFail').innerText = JSON.parse(xhr.responseText).data
+      }
     }
   }
 }
