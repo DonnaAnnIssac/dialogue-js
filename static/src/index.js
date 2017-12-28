@@ -1,5 +1,5 @@
 const logIn = () => {
-  let name = document.getElementById('name').value
+  let name = document.getElementById('name').value.trim()
   let pwd = document.getElementById('pwd').value
   let xhr = new XMLHttpRequest()
   xhr.open('POST', 'http://localhost:5000/api/user/signin', true)
