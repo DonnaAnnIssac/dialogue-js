@@ -11,10 +11,12 @@ postController.create = (req, res) => {
 }
 
 postController.getAll = (req, res) => {
-  req.app.db.collection('posts').find().toArray((err, result) => {
-    if (err) res.json({'status': 'fail', 'data': err})
-    else res.json({'status': 'success', 'data': result})
-  })
+  if (req.session && req.session.userName === req.query.userName && req.session.userID === req.query.id) {
+    req.app.db.collection('posts').find().toArray((err, result) => {
+      if (err) res.json({'status': 'fail', 'data': err})
+      else res.json({'status': 'success', 'data': result})
+    })
+  }
 }
 
 postController.show = (req, res) => {
