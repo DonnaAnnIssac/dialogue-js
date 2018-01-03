@@ -1,6 +1,5 @@
 const UserModel = require('./../models').user
 const userController = {}
-
 userController.create = (req, res) => {
   validateName(req, (err, available) => {
     if (err) throw err
@@ -32,9 +31,12 @@ userController.login = (req, res) => {
     if (result.length === 0) res.json({'status': 'fail', 'data': 'Invalid User Name'})
     else if (result[0].password !== req.body.password) res.json({'status': 'fail', 'data': 'Password incorrect'})
     else {
-      req.session.userName = req.body.userName
-      req.session.userID = result[0]._id
-      res.json({'status': 'success', 'data': {'userName': result[0].userName, 'id': result[0]._id}})
+      let user = {}
+      user['userName'] = result[0].userName
+      user['userID'] = result[0]._id
+      req.session.userName = result[0].userName
+      req.session.id = result[0]._id
+      res.json({'status': 'success', 'data': user})
     }
   })
 }

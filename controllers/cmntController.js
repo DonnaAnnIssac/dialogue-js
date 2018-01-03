@@ -5,7 +5,7 @@ const commentController = {}
 commentController.create = (req, res) => {
   const comment = new CommentModel(req.body)
   req.app.db.collection('comments').insertOne(comment, (err, result) => {
-    if (err) res.json({'status': 'fail', 'data': err})
+    if (err) throw err
     else res.json({'status': 'success', 'data': result})
   })
 }

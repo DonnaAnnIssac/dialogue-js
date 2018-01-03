@@ -1,19 +1,12 @@
 let postBtn = document.getElementById('postBtn')
 let postContainer = document.getElementById('allPosts')
-let inputList = document.querySelectorAll('input')
-
-inputList.forEach((element) => {
-  element.addEventListener('click', () => {
-    element.value = ''
-  })
-})
 
 const createLinkField = (element, container) => {
   let link = document.createElement('div')
   let linkVal = document.createElement('a')
   linkVal.setAttribute('href', element.link)
   linkVal.setAttribute('target', '_blank')
-  linkVal.innerHTML = 'click here'
+  linkVal.innerHTML = element.link
   link.appendChild(linkVal)
   container.appendChild(link)
 }
@@ -46,21 +39,25 @@ const addPostContents = () => {
   return postContents
 }
 
-const createPost = () => {
+const createPost = (postContents) => {
   document.querySelectorAll('input').forEach(element => {
     element.value = ''
     element.blur()
   })
-  let postContents = addPostContents()
   let xhr = new XMLHttpRequest()
   xhr.open('POST', 'http://localhost:5000/api/post/create', true)
   xhr.setRequestHeader('Content-type', 'application/json')
   xhr.send(JSON.stringify(postContents))
-  let post = document.createElement('div')
-  postContainer.appendChild(createPostDiv(post, postContents))
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      if (JSON.parse(xhr.responseText).status === 'success') loadPosts()
+      else window.location.href = 'index.html'
+    }
+  }
 }
 
 const listPosts = (list, container) => {
+  while (container.lastChild) container.removeChild(container.lastChild)
   list.forEach((element) => {
     let post = document.createElement('div')
     post = createPostDiv(post, element)
@@ -70,7 +67,7 @@ const listPosts = (list, container) => {
 
 const loadPosts = () => {
   let xhr = new XMLHttpRequest()
-  xhr.open('GET', 'http://localhost:5000/api/post/?id=' + sessionStorage.id + '&userName=' + sessionStorage.name, true)
+  xhr.open('GET', 'http://localhost:5000/api/post?id=' + sessionStorage.id + '&userName=' + sessionStorage.name, true)
   xhr.send()
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -80,5 +77,5 @@ const loadPosts = () => {
   }
 }
 
-postBtn.addEventListener('click', createPost)
-window.addEventListener('load', loadPosts)
+postBtn.addEventListener('click', () => createPost(addPostContents()))
+window.addEventListener('load', loadPosts())

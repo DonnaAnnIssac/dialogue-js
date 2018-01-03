@@ -10,6 +10,7 @@ const logIn = () => {
       if (JSON.parse(xhr.responseText).status === 'success') {
         sessionStorage.name = JSON.parse(xhr.responseText).data['userName']
         sessionStorage.id = JSON.parse(xhr.responseText).data['id']
+        console.log('Login success')
         window.location.replace('myFeed.html')
       } else {
         document.getElementById('loginFail').innerText = JSON.parse(xhr.responseText).data
