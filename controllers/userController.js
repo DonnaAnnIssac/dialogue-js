@@ -28,15 +28,14 @@ userController.login = (req, res) => {
   .find({'userName': req.body.userName})
   .toArray((err, result) => {
     if (err) throw err
-    if (result.length === 0) res.json({'status': 'fail', 'data': 'Invalid User Name'})
-    else if (result[0].password !== req.body.password) res.json({'status': 'fail', 'data': 'Password incorrect'})
-    else {
-      let user = {}
-      user['userName'] = result[0].userName
-      user['userID'] = result[0]._id
+    if (result.length === 0) res.json({'status': 'fail', 'data': 'User does not exist. Sign up to continue.'})
+    else if (result[0].userName !== req.body.userName) res.json({'status': 'fail', 'data': 'Invalid User Name'})
+    else if (result[0].userName === req.body.userName && result[0].password !== req.body.password) {
+      res.json({'status': 'fail', 'data': 'Password incorrect'})
+    } else {
       req.session.userName = result[0].userName
       req.session.id = result[0]._id
-      res.json({'status': 'success', 'data': user})
+      res.json({'status': 'success', 'data': {'userName': result[0].userName, 'id': result[0]._id}})
     }
   })
 }
