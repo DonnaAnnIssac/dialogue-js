@@ -3,7 +3,7 @@ const PostModel = require('./../models').post
 const postController = {}
 
 postController.create = (req, res) => {
-  if (req.session) {
+  if (req.session.userName !== undefined && req.session.id !== undefined) {
     const post = new PostModel(req.body)
     req.app.db.collection('posts').insertOne(post, (err, result) => {
       if (err) throw err
@@ -13,7 +13,7 @@ postController.create = (req, res) => {
 }
 
 postController.getAll = (req, res) => {
-  if (req.session) {
+  if (req.session.userName !== undefined && req.session.id !== undefined) {
     req.app.db.collection('posts').find().toArray((err, result) => {
       if (err) throw err
       else res.json({'status': 'success', 'data': result})
@@ -22,7 +22,7 @@ postController.getAll = (req, res) => {
 }
 
 postController.show = (req, res) => {
-  if (req.session) {
+  if (req.session.userName !== undefined && req.session.id !== undefined) {
     req.app.db.collection('posts')
     .find({'_id': ObjectId(req.query.id)})
     .toArray((err, result) => {
@@ -40,7 +40,7 @@ postController.show = (req, res) => {
 }
 
 postController.delete = (req, res) => {
-  if (req.session) {
+  if (req.session.userName !== undefined && req.session.id !== undefined) {
     req.app.db.collection('posts')
     .deleteOne({
       '_id': ObjectId(req.body.id)
@@ -52,7 +52,7 @@ postController.delete = (req, res) => {
 }
 
 postController.update = (req, res) => {
-  if (req.session) {
+  if (req.session.userName !== undefined && req.session.id !== undefined) {
     req.app.db.collection('posts')
     .updateOne({ '_id': ObjectId(req.body.id) }, {$set: req.body.values}, (err, result) => {
       if (err) throw err
@@ -62,7 +62,7 @@ postController.update = (req, res) => {
 }
 
 postController.getMyPosts = (req, res) => {
-  if (req.session) {
+  if (req.session.userName !== undefined && req.session.id !== undefined) {
     req.app.db.collection('posts')
     .find({'author_id': ObjectId(req.query.id)})
     .toArray((err, result) => {
@@ -73,7 +73,7 @@ postController.getMyPosts = (req, res) => {
 }
 
 postController.upvote = (req, res) => {
-  if (req.session) {
+  if (req.session.userName !== undefined && req.session.id !== undefined) {
     req.app.db.collection('posts')
     .updateOne({'_id': ObjectId(req.body.id)}, {$inc: {'upVote': 1}}, (err, result) => {
       if (err) res.json({'status': 'fail', 'data': err})
@@ -83,7 +83,7 @@ postController.upvote = (req, res) => {
 }
 
 postController.downvote = (req, res) => {
-  if (req.session) {
+  if (req.session.userName !== undefined && req.session.id !== undefined) {
     req.app.db.collection('posts')
     .updateOne({'_id': ObjectId(req.body.id)}, {$inc: {'downVote': 1}}, (err, result) => {
       if (err) res.json({'status': 'fail', 'data': err})
