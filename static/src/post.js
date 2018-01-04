@@ -23,13 +23,13 @@ const createContainerDiv = (container, element) => {
 
 const showPost = postObj => createContainerDiv(document.getElementById('postContainer'), postObj)
 
-const showComments = commentsList => commentsList.forEach(comment => createContainerDiv(document.getElementById('commentContainer'), commentsList))
+const showComments = commentsList => commentsList.forEach(comment => createContainerDiv(document.getElementById('commentContainer'), comment))
 
 const getPost = () => {
   let xhr = new XMLHttpRequest()
   let url = window.location.href
   let queryString = url.slice(url.indexOf('?') + 1)
-  xhr.open('GET', 'http://localhost:5000/api/post/show?userName=' + sessionStorage.name + '&userID=' + sessionStorage.id + '&' + queryString, true)
+  xhr.open('GET', 'http://localhost:5000/api/post/show?' + queryString, true)
   xhr.send()
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -58,7 +58,6 @@ const createCommentObj = () => {
   comment['post_id'] = url.slice(url.indexOf('=') + 1)
   document.getElementById('commentText').value = ''
   document.getElementById('commentLink').value = ''
-  console.log(comment)
   return comment
 }
 
