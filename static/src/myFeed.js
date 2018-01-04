@@ -1,5 +1,6 @@
 let postBtn = document.getElementById('postBtn')
 let postContainer = document.getElementById('allPosts')
+let logoutBtn = document.getElementById('signout')
 
 const createLinkField = (element, container) => {
   let link = document.createElement('div')
@@ -23,7 +24,8 @@ const createPostDiv = (post, postObj) => {
   if (postObj.text !== null) createTextDiv(postObj, 'text', post)
   if (postObj.link !== null) createLinkField(postObj, post)
   post.setAttribute('id', postObj._id)
-  post.addEventListener('click', () => {
+  post.addEventListener('click', (event) => {
+    event.stopPropagation()
     window.location.href = 'post.html?id=' + postObj._id
   })
   return post
@@ -67,7 +69,7 @@ const listPosts = (list, container) => {
 
 const loadPosts = () => {
   let xhr = new XMLHttpRequest()
-  xhr.open('GET', 'http://localhost:5000/api/post?id=' + sessionStorage.id + '&userName=' + sessionStorage.name, true)
+  xhr.open('GET', 'http://localhost:5000/api/post', true)
   xhr.send()
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -77,5 +79,20 @@ const loadPosts = () => {
   }
 }
 
-postBtn.addEventListener('click', () => createPost(addPostContents()))
-window.addEventListener('load', loadPosts())
+const signout = () => {
+  let xhr = new XMLHttpRequest()
+  xhr.open('GET', 'http://localhost:5000/api/user/signout', true)
+  xhr.send()
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      if (JSON.parse(xhr.responseText).status === 'success') window.location.href = 'index.html'
+    }
+  }
+}
+
+logoutBtn.addEventListener('click', signout)
+postBtn.addEventListener('click', (event) => {
+  event.stopPropagation()
+  createPost(addPostContents)
+})
+window.addEventListener('load', loadPosts)
