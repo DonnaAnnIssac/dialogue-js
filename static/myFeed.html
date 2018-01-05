@@ -1,28 +1,37 @@
 <html>
     <head>
         <title>My Feed</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
     </head>
     <body>
-        <div id="parent">
-            <div>
-                <div id="myPosts">My Posts</div>
-                <div>
-                    <button id="signout">Sign Out</button>
-                </div>
+        <div class="row" id="parent"
+        <div class="row">
+            <div class="col-sm-2">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" id="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="myPosts">My Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="signout">Sign Out</a>
+                    </li>
+                </ul>
             </div>
-            <div>
+            <div class="col-sm-10">
                 <div id="createPost">
-                    <div id="titleBox">
-                        <input type="text" id="title" placeholder="Title" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'Title'" required>
+                    <div class="form-group" id="titleBox">
+                        <input type="text" class="form-control" id="title" placeholder="Title" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'Title'" required>
                     </div>
-                    <div id="descBox">
-                        <input type="textarea" id="description" placeholder = "Description" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'Description'" required>
+                    <div class="form-group" id="descBox">
+                        <textarea class="form-control" rows = "3" id="description" placeholder = "Description" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'Description'" required></textarea>
                     </div>
-                    <div id="linkBox">
-                        <input type="text" id="link" placeholder="Link (optional)" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'Link (optional)'">
+                    <div class="form-group" id="linkBox">
+                        <input type="text" class="form-control" id="link" placeholder="Link (optional)" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'Link (optional)'">
                     </div>
-                    <div id="post">
-                        <button id="postBtn" type="submit">Post</button>
+                    <div class="form-group" id="post">
+                        <button class="btn btn-primary" id="postBtn" type="submit">Post</button>
                     </div>
                 </div>
                 <div id="allPosts"></div>

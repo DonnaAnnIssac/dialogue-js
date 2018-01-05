@@ -2,7 +2,7 @@ const logIn = () => {
   let name = document.getElementById('name').value.trim()
   let pwd = document.getElementById('pwd').value
   let xhr = new XMLHttpRequest()
-  xhr.open('POST', 'http://localhost:5000/api/user/signin', true)
+  xhr.open('POST', 'http://localhost:7000/api/user/signin', true)
   xhr.setRequestHeader('Content-type', 'application/json')
   xhr.send(JSON.stringify({'userName': name, 'password': pwd}))
   xhr.onreadystatechange = () => {

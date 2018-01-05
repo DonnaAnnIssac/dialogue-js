@@ -1,19 +1,28 @@
 <html>
     <head>
         <title>Sign In</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
     </head>
     <body>
-        <div id="parent">
-            <div id="userName">
-                <input id="name" type="text" placeholder = "User Name" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'User Name'" required>
+        <div class="row">
+            <div class="form-group" id="userName">
+                <input class="form-control" id="name" type="text" placeholder = "User Name" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'User Name'" required>
             </div>
-            <div id="password">
-                <input id="pwd" type="password" placeholder="Password" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'Password'" required>
+        </div>
+        <div class = "row">
+            <div class="form-group" id="password">
+                <input class="form-control" id="pwd" type="password" placeholder="Password" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'Password'" required>
             </div>
-            <div id="login">
-                <button type="submit">Log In</button>
+        </div>
+        <div class="row">
+            <div class="form-group" id="login">
+                <button class="btn btn-primary" type="submit">Log In</button>
             </div>
+        </div>
+        <div class="row">
             <div id="loginFail"></div>
+        </div>
+        <div class="row">
             <div id="signup">
                 <a href="signup.html">Don't have an account? Click here to signup</a>
             </div>

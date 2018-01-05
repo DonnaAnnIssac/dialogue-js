@@ -5,7 +5,7 @@ let confirm = document.getElementById('confPwd')
 const createUser = () => {
   if (pass.value === confirm.value) {
     let xhr = new XMLHttpRequest()
-    xhr.open('POST', 'http://localhost:5000/api/user/signup', true)
+    xhr.open('POST', 'http://localhost:7000/api/user/signup', true)
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.send(JSON.stringify({'userName': name.value, 'password': pass.value}))
     xhr.onreadystatechange = () => {

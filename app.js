@@ -4,7 +4,7 @@ const routes = require('./routes')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
-// const MongoStore = require('connect-mongo')(express)
+// const MongoStore = require('connect-mongo')
 const config = require('./config')
 
 let MongoClient = require('mongodb').MongoClient

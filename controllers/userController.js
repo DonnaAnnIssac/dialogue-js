@@ -1,5 +1,7 @@
 const UserModel = require('./../models').user
+const ObjectId = require('mongodb').ObjectID
 const userController = {}
+
 userController.create = (req, res) => {
   validateName(req, (err, available) => {
     if (err) throw err
@@ -34,7 +36,7 @@ userController.login = (req, res) => {
       res.json({'status': 'fail', 'data': 'Password incorrect'})
     } else {
       req.session.userName = result[0].userName
-      req.session.id = result[0]._id
+      req.session.userID = ObjectId(result[0]._id)
       res.json({'status': 'success', 'data': {'userName': result[0].userName, 'id': result[0]._id}})
     }
   })
